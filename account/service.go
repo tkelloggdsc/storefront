@@ -4,8 +4,8 @@ import (
 	"log"
 	"time"
 
-	micro "github.com/micro/go-micro"
-	accountProto "github.com/timkellogg/store/account/protos/account"
+	"github.com/micro/go-micro"
+	k8s "github.com/micro/kubernetes/go/micro"
 )
 
 var accountRepository = AccountRepository{}
@@ -20,15 +20,13 @@ func init() {
 }
 
 func main() {
-	service := micro.NewService(
-		micro.Name("go.micro.srv.accounts"),
+	service := k8s.NewService(
+		micro.Name("greeter"),
 		micro.Version("0.0.1"),
 		micro.RegisterTTL(time.Second*30),
 	)
 
 	service.Init()
-
-	accountProto.RegisterAccountsHandler(service.Server(), new(Server))
 
 	if err := service.Run(); err != nil {
 		log.Fatal(err)
