@@ -6,6 +6,7 @@ import (
 
 	"github.com/micro/go-micro"
 	k8s "github.com/micro/kubernetes/go/micro"
+	accountProto "github.com/timkellogg/store/account/protos/account"
 )
 
 var accountRepository = AccountRepository{}
@@ -25,6 +26,8 @@ func main() {
 		micro.Version("0.0.1"),
 		micro.RegisterTTL(time.Second*30),
 	)
+
+	accountProto.RegisterAccountsHandler(service.Server(), new(Server))
 
 	service.Init()
 
