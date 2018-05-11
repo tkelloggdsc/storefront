@@ -21,7 +21,7 @@ func init() {
 
 func main() {
 	service := k8s.NewService(
-		micro.Name("greeter"),
+		micro.Name("go.micro.srv.accounts"),
 		micro.Version("0.0.1"),
 		micro.RegisterTTL(time.Second*30),
 	)
